@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Penjualan Makanan</title>
+  <style>
+    /* CSS untuk tampilan penjualan */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+
+    .item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+
+    .item img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .item button {
+      display: block;
+      width: 100%;
+      padding: 5px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #cart {
+      margin-top: 20px;
+      border-top: 2px solid #333;
+      padding-top: 10px;
+    }
+
+    #cart table {
+      width: 100%;
+    }
+
+    #cart th,
+    #cart td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #cart th {
+      background-color: #f2f2f2;
+    }
+
+    #total {
+      margin-top: 20px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <h1>Penjualan Makanan</h1>
+
+  <div id="menu">
+    <div class="item">
+      <img src="https://img.freepik.com/free-photo/comida-lifestyle-spaghetti-foodie-gastronomy_1350-47.jpg?w=900&t=st=1686892665~exp=1686893265~hmac=f21db34b893dbead18fa522454e7b76fc2a5fe87264c5bbda752a39537cbf1dc">
+      <h2>spaghetti</h2>
+      <p>Harga: Rp 20,000</p>
+      <button onclick="addToCart('Spaghetti', 20000)">Tambahkan ke Keranjang</button>
+    </div>
+
+    <div class="item">
+      <img src="https://img.inews.co.id/media/1200/files/inews_new/2020/10/27/Cara_Membuat_Burger.jpg">
+      <h2>Burger</h2>
+      <p>Harga: Rp 30,000</p>
+      <button onclick="addToCart('Burger', 30000)">Tambahkan ke Keranjang</button>
+    </div>
+
+    <div class="item">
+      <img src="https://img-global.cpcdn.com/recipes/fdca0a311cbf9a16/400x400cq70/photo.jpg">
+      <h2>Pizza Papperoni</h2>
+      <p>Harga: Rp 55,000</p>
+      <button onclick="addToCart('Pizza Papperoni', 55000)">Tambahkan ke Keranjang</button>
+    </div>
+  </div>
+
+  <div id="cart">
+    <h2>Keranjang Belanja</h2>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Harga</th>
+      </tr>
+    </table>
+
+    <div id="total">
+      <strong>Total:</strong> Rp 0
+    </div>
+  </div>
+
+  <script>
+    // JavaScript untuk penjualan makanan
+
+    // Variabel global untuk menyimpan keranjang belanja
+    var cartItems = [];
+
+    // Fungsi untuk menambahkan item ke keranjang belanja
+    function addToCart(item, price) {
+      cartItems.push({ item: item, price: price });
+      updateCart();
+    }
+
+    // Fungsi untuk memperbarui tampilan keranjang belanja
+    function updateCart() {
+      var cartTable = document.querySelector("#cart table");
+      var cartTotal = document.querySelector("#total");
+
+      // Hapus semua baris item sebelum memperbarui
+      while (cartTable.rows.length > 1) {
+        cartTable.deleteRow(1);
+      }
+
+      // Tambahkan item ke baris baru dalam tabel
+      for (var i = 0; i < cartItems.length; i++) {
+        var row = cartTable.insertRow();
+        var itemCell = row.insertCell(0);
+        var priceCell = row.insertCell(1);
+
+        itemCell.innerHTML = cartItems[i].item;
+        priceCell.innerHTML = "Rp " + cartItems[i].price;
+      }
+
+      // Hitung total harga
+      var total = 0;
+      for (var j = 0; j < cartItems.length; j++) {
+        total += cartItems[j].price;
+      }
+
+      cartTotal.innerHTML = "<strong>Total:</strong> Rp " + total;
+    }
+  </script>
+</body>
+</html>
